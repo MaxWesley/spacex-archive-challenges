@@ -1,4 +1,5 @@
 import { api } from "@/lib/axios";
+import type { Launch } from "../types/launch";
 
 interface GetLaunchesParams {
   page?: number;
@@ -8,11 +9,20 @@ interface GetLaunchesParams {
   upcoming?: boolean;
 }
 
-export async function getLaunches({
-  page = 1,
-  limit = 12,
-  ...params
-}: GetLaunchesParams) {
+interface PaginatedApiResponse<Payload> {
+  docs: Payload[];
+  totalDocs: number;
+  limit: number;
+  totalPages: number;
+  page: number;
+  pagingCounter: number;
+  hasPrevPage: boolean;
+  hasNextPage: boolean;
+  prevPage: number | null;
+  nextPage: number | null;
+}
+
+export async function getLaunches({ page = 1, limit = 12, ...params }: GetLaunchesParams) {
   const query: any = {};
 
   if (params.search) {
@@ -27,7 +37,7 @@ export async function getLaunches({
     query.upcoming = params.upcoming;
   }
 
-  const { data } = await api.post("/launches/query", {
+  const { data } = await api.post<PaginatedApiResponse<Launch>>("/launches/query", {
     query,
     options: {
       page,
