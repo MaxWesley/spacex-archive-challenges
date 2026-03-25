@@ -56,10 +56,10 @@ export function LaunchesPagination({
         <HStack>
           <Button onClick={onPrev} variant="outline" disabled={!hasPrevPage}>
             <Icon as={LuChevronLeft} />
-            PREV_SEO
+            PREV_SEQ
           </Button>
           <Button onClick={onNext} variant="outline" disabled={!hasNextPage}>
-            NEXT_SEO
+            NEXT_SEQ
             <Icon as={LuChevronRight} />
           </Button>
         </HStack>
