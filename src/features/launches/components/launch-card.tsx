@@ -17,14 +17,19 @@ export function LaunchCard({ launch }: LaunchCardProps) {
     <Box
       p={4}
       borderWidth="1px"
-      height={420}
+      minH={300}
       display="flex"
       justifyContent="center"
       alignItems="center"
       flexDir="column"
+      cursor="pointer"
+      _hover={{
+        transform: "scale(1.02)",
+        transition: "0.2s",
+      }}
     >
       <Image rounded="xs" src={imageSrc} alt={name} width={160} height={160} />
-      <Container mt={8}>
+      <Box mt={8}>
         <Box display="flex" mb={4} justifyContent="space-between" w="100%">
           <Badge
             size="xs"
@@ -40,7 +45,7 @@ export function LaunchCard({ launch }: LaunchCardProps) {
         <Text fontWeight="light" fontSize="sm" textAlign="left">
           {launchpad}
         </Text>
-      </Container>
+      </Box>
     </Box>
   );
 }
