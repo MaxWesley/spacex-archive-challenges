@@ -9,15 +9,18 @@ export function LaunchesPage() {
 
     const placeholderSrc = "/launch-placeholder.png"
 
+    function getImageSrc(launch: any) {
+        const patchSmall = launch.links?.patch?.small
+        const patchLarge = launch.links?.patch?.large
+        const flickrFirst = launch.links?.flickr?.original?.[0]
+        return patchSmall || patchLarge || flickrFirst || placeholderSrc
+    }
+
     return (
         <div>
             <Grid templateColumns="repeat(3, 1fr)" gap={4}>
                 {data?.docs.map((launch: any) => {
-                    const patchSmall = launch.links?.patch?.small
-                    const patchLarge = launch.links?.patch?.large
-                    const flickrFirst = launch.links?.flickr?.original?.[0]
-                    const imageSrc =
-                        patchSmall || patchLarge || flickrFirst || placeholderSrc
+                    const imageSrc = getImageSrc(launch)
 
                     return (
                         <Box key={launch.id} p={4} borderWidth="1px" borderRadius="md">
