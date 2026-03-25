@@ -34,17 +34,17 @@ export async function getLaunches({
       limit,
       sort: {
         date_utc: "desc",
-        populate: [
-          {
-            path: "rocket",
-            select: ["name", "type"],
-          },
-          {
-            path: "launchpad",
-            select: ["name", "locality"],
-          },
-        ],
       },
+      populate: [
+        {
+          path: "rocket",
+          select: { name: 1, type: 1 },
+        },
+        {
+          path: "launchpad",
+          select: { name: 1, locality: 1 },
+        },
+      ],
     },
   });
 
