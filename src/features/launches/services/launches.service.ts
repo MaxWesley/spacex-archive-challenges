@@ -43,7 +43,7 @@ export async function getLaunches({ page = 1, limit = 12, ...params }: GetLaunch
       page,
       limit,
       sort: {
-        date_utc: "desc",
+        date_utc: "asc",
       },
       populate: [
         {
