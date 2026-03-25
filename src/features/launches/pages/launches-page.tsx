@@ -1,13 +1,20 @@
 import { useLaunches } from "../hooks/use-launches";
 import { Grid, Container } from "@chakra-ui/react";
 import { LaunchCard } from "../components/launch-card";
-import { LaunchPageSkeleton } from "../components/launche-page.skeleton";
+import { LaunchesPageSkeleton } from "../components/launches-page.skeleton";
+import { LaunchesPageErrorState } from "../components/launches-page-error-state";
 
 export function LaunchesPage() {
-  const { data, isLoading, error } = useLaunches({ page: 1 });
+  const { data, isLoading, error, refetch } = useLaunches({ page: 1 });
 
-  if (isLoading) return <LaunchPageSkeleton />;
-  if (error) return <p>Error...</p>;
+  if (isLoading) return <LaunchesPageSkeleton />;
+  if (error)
+    return (
+      <LaunchesPageErrorState
+        message={error instanceof Error ? error.message : undefined}
+        onRetry={refetch}
+      />
+    );
 
   return (
     <Container py={4} maxW="full" w="full" border="none">

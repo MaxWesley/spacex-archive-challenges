@@ -1,6 +1,6 @@
 import { Box, Center, Container, Grid, Flex, Skeleton, Text } from "@chakra-ui/react";
 
-export function LaunchPageSkeleton() {
+export function LaunchesPageSkeleton() {
   return (
     <Container py={4} maxW="full" w="full" border="none">
       <Box>
