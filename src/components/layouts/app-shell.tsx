@@ -12,7 +12,7 @@ export function AppShell({ children }: PropsWithChildren) {
             <HStack gap={6}>
               <Text fontWeight="bold">SpaceX</Text>
               <Link asChild>
-                <RouterLink to="/">Home</RouterLink>
+                <RouterLink to="/">Launches</RouterLink>
               </Link>
             </HStack>
             <ColorModeButton />
