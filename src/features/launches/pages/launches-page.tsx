@@ -5,6 +5,7 @@ import { LaunchesPageErrorState } from "../components/launches-page-error-state"
 import { LaunchesPagination } from "../components/launches-pagination";
 import { LaunchesSearchInput } from "../components/launches-search-input";
 import { FilterSelect } from "@/components/ui/filter-select";
+import { DateInput } from "@/components/ui/date-input";
 import { useLaunchesPage } from "../hooks/use-launches-page";
 
 export function LaunchesPage() {
@@ -17,6 +18,8 @@ export function LaunchesPage() {
     search,
     success,
     upcoming,
+    dateFrom,
+    dateTo,
     page,
     totalPages,
     totalDocs,
@@ -25,6 +28,8 @@ export function LaunchesPage() {
     handleSearchChange,
     handleSuccessChange,
     handleUpcomingChange,
+    handleDateFromChange,
+    handleDateToChange,
     handlePrevPage,
     handleNextPage,
   } = useLaunchesPage();
@@ -74,7 +79,7 @@ export function LaunchesPage() {
 
   return (
     <Container py={4} maxW="full" w="full" border="none">
-      <Flex mb={4} gap={3} flexDir={{ base: "column", md: "row" }}>
+      <Flex mb={4} gap={3} flexDir={{ base: "column", md: "row" }} flexWrap="wrap">
         <LaunchesSearchInput value={search} onChange={handleSearchChange} />
         <FilterSelect
           label="Filter by status"
@@ -95,6 +100,18 @@ export function LaunchesPage() {
             { label: "Past", value: "false" },
           ]}
           onChange={handleUpcomingChange}
+        />
+        <DateInput
+          label="Date from"
+          value={dateFrom}
+          onChange={handleDateFromChange}
+          max={dateTo || undefined}
+        />
+        <DateInput
+          label="Date to"
+          value={dateTo}
+          onChange={handleDateToChange}
+          min={dateFrom || undefined}
         />
       </Flex>
       {renderContent()}

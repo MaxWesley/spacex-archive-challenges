@@ -7,6 +7,8 @@ interface Params {
   search?: string;
   success?: boolean;
   upcoming?: boolean;
+  dateFrom?: string;
+  dateTo?: string;
 }
 
 const STALE_TIME_ONE_MINUTE = 1000 * 60;

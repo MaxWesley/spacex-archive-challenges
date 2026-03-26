@@ -11,12 +11,16 @@ export function useLaunchesPage() {
   const success = successParam === "true" ? true : successParam === "false" ? false : undefined;
   const upcomingParam = searchParams.get("upcoming");
   const upcoming = upcomingParam === "true" ? true : upcomingParam === "false" ? false : undefined;
+  const dateFrom = searchParams.get("dateFrom") ?? "";
+  const dateTo = searchParams.get("dateTo") ?? "";
 
   const { data, isLoading, isFetching, error, refetch } = useLaunches({
     page,
     search: search || undefined,
     success,
     upcoming,
+    dateFrom: dateFrom || undefined,
+    dateTo: dateTo || undefined,
   });
 
   const totalPages = data?.totalPages ?? 1;
@@ -59,6 +63,20 @@ export function useLaunchesPage() {
     });
   };
 
+  const handleDateFromChange = (value: string) => {
+    updateParams({
+      dateFrom: value || null,
+      page: "1",
+    });
+  };
+
+  const handleDateToChange = (value: string) => {
+    updateParams({
+      dateTo: value || null,
+      page: "1",
+    });
+  };
+
   const handlePrevPage = () => {
     updateParams({ page: String(Math.max(1, page - 1)) });
   };
@@ -76,6 +94,8 @@ export function useLaunchesPage() {
     search,
     success: successParam ?? "",
     upcoming: upcomingParam ?? "",
+    dateFrom,
+    dateTo,
     page,
     totalPages,
     totalDocs,
@@ -84,6 +104,8 @@ export function useLaunchesPage() {
     handleSearchChange,
     handleSuccessChange,
     handleUpcomingChange,
+    handleDateFromChange,
+    handleDateToChange,
     handlePrevPage,
     handleNextPage,
   };

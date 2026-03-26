@@ -7,6 +7,8 @@ interface GetLaunchesParams {
   search?: string;
   success?: boolean;
   upcoming?: boolean;
+  dateFrom?: string;
+  dateTo?: string;
 }
 
 interface PaginatedApiResponse<Payload> {
@@ -35,6 +37,12 @@ export async function getLaunches({ page = 1, limit = 12, ...params }: GetLaunch
 
   if (params.upcoming !== undefined) {
     query.upcoming = params.upcoming;
+  }
+
+  if (params.dateFrom || params.dateTo) {
+    query.date_utc = {};
+    if (params.dateFrom) query.date_utc.$gte = params.dateFrom;
+    if (params.dateTo) query.date_utc.$lte = `${params.dateTo}T23:59:59.999Z`;
   }
 
   const { data } = await api.post<PaginatedApiResponse<Launch>>("/launches/query", {
