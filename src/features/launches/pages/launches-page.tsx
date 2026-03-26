@@ -1,9 +1,10 @@
-import { Box, Grid, Container } from "@chakra-ui/react";
+import { Box, Flex, Grid, Container } from "@chakra-ui/react";
 import { LaunchCard } from "../components/launch-card";
 import { LaunchesPageSkeleton } from "../components/launches-page.skeleton";
 import { LaunchesPageErrorState } from "../components/launches-page-error-state";
 import { LaunchesPagination } from "../components/launches-pagination";
 import { LaunchesSearchInput } from "../components/launches-search-input";
+import { LaunchesFilterSelect } from "../components/launches-filter-select";
 import { useLaunchesPage } from "../hooks/use-launches-page";
 
 export function LaunchesPage() {
@@ -14,12 +15,14 @@ export function LaunchesPage() {
     error,
     refetch,
     search,
+    success,
     page,
     totalPages,
     totalDocs,
     hasPrevPage,
     hasNextPage,
     handleSearchChange,
+    handleSuccessChange,
     handlePrevPage,
     handleNextPage,
   } = useLaunchesPage();
@@ -69,9 +72,19 @@ export function LaunchesPage() {
 
   return (
     <Container py={4} maxW="full" w="full" border="none">
-      <Box mb={4}>
+      <Flex mb={4} gap={3} flexDir={{ base: "column", md: "row" }}>
         <LaunchesSearchInput value={search} onChange={handleSearchChange} />
-      </Box>
+        <LaunchesFilterSelect
+          label="Filter by status"
+          value={success}
+          options={[
+            { label: "All", value: "" },
+            { label: "Success", value: "true" },
+            { label: "Failure", value: "false" },
+          ]}
+          onChange={handleSuccessChange}
+        />
+      </Flex>
       {renderContent()}
     </Container>
   );
