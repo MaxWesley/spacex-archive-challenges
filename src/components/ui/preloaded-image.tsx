@@ -1,18 +1,12 @@
-import { Box, Image } from "@chakra-ui/react";
+import { Box, Image, type ImageProps } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 type ImageState = "loading" | "loaded" | "error";
 
-interface PreloadedImageProps {
+interface PreloadedImageProps extends ImageProps {
   src: string;
   alt: string;
   fallbackSrc?: string;
-  w?: any;
-  h?: any;
-  mb?: any;
-  rounded?: any;
-  borderRadius?: any;
-  objectFit?: any;
   loading?: "lazy" | "eager";
   decoding?: "async" | "sync" | "auto";
   referrerPolicy?: React.HTMLAttributeReferrerPolicy;
