@@ -15,14 +15,14 @@ export function useLaunchDetail() {
     enabled: Boolean(id),
   });
 
-  function handleGoBack() {
+  const handleGoBack = () => {
     const index = (window.history.state as { idx?: number } | null)?.idx ?? 0;
     if (index > 0) {
       navigate(-1);
       return;
     }
     navigate("/launches?page=1", { replace: true });
-  }
+  };
 
   return { id, ...query, handleGoBack };
 }
