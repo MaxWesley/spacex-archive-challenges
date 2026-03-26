@@ -4,6 +4,8 @@ export type Launch = {
   date_utc: string;
   success: boolean | null;
   upcoming: boolean;
+  flight_number?: number | null;
+  details?: string | null;
   links: {
     patch: {
       small: string | null;
@@ -12,6 +14,9 @@ export type Launch = {
     flickr: {
       original: string[];
     };
+    webcast?: string | null;
+    wikipedia?: string | null;
+    article?: string | null;
   };
   rocket: {
     name: string;
@@ -21,4 +26,13 @@ export type Launch = {
     name: string;
     locality: string;
   };
+  crew?: Array<{
+    role: string;
+    crew: {
+      name: string;
+      agency?: string | null;
+      image?: string | null;
+      wikipedia?: string | null;
+    };
+  }>;
 };

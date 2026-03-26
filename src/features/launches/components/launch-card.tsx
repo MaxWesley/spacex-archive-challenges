@@ -34,7 +34,14 @@ export function LaunchCard({ launch }: LaunchCardProps) {
     >
       <Center>
         <Flex flexDir="column" alignItems="center">
-          <PreloadedImage src={imageSrc} alt={name} w={160} h={160} rounded="xs" />
+          <PreloadedImage
+            src={imageSrc}
+            alt={name}
+            w={160}
+            h={160}
+            rounded="xs"
+            objectFit="contain"
+          />
           <Box mt={8}>
             <Flex mb={4} justifyContent="space-between" alignItems="center">
               <Badge

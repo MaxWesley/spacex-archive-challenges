@@ -9,8 +9,18 @@ export function useLaunchDetail() {
   const query = useQuery({
     queryKey: ["launch", id],
     queryFn: async () => {
-      const { data } = await api.get(`/launches/${id}`);
-      return data;
+      const { data } = await api.post("/launches/query", {
+        query: { _id: id },
+        options: {
+          limit: 1,
+          populate: [
+            { path: "rocket", select: { name: 1, type: 1 } },
+            { path: "launchpad", select: { name: 1, locality: 1 } },
+            { path: "crew", select: { name: 1, agency: 1, image: 1, wikipedia: 1 } },
+          ],
+        },
+      });
+      return data?.docs?.[0] ?? null;
     },
     enabled: Boolean(id),
   });
@@ -24,5 +34,15 @@ export function useLaunchDetail() {
     navigate("/launches?page=1", { replace: true });
   };
 
-  return { id, ...query, handleGoBack };
+  const crew = Array.isArray((query.data as any)?.crew) ? ((query.data as any).crew as any[]) : [];
+  return {
+    id,
+    data: query.data,
+    crew,
+    isLoading: query.isLoading,
+    isFetching: query.isFetching,
+    error: query.error,
+    handleGoBack,
+    refetch: query.refetch,
+  };
 }
