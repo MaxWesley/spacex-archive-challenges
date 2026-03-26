@@ -1,11 +1,9 @@
-import { Box, Flex, Grid, Container } from "@chakra-ui/react";
+import { Box, Grid, Container } from "@chakra-ui/react";
 import { LaunchCard } from "../components/launch-card";
 import { LaunchesPageSkeleton } from "../components/launches-page.skeleton";
 import { LaunchesPageErrorState } from "../components/launches-page-error-state";
 import { LaunchesPagination } from "../components/launches-pagination";
-import { LaunchesSearchInput } from "../components/launches-search-input";
-import { FilterSelect } from "@/components/ui/filter-select";
-import { DateInput } from "@/components/ui/date-input";
+import { LaunchesFilters } from "../components/launches-filters";
 import { useLaunchesPage } from "../hooks/use-launches-page";
 
 export function LaunchesPage() {
@@ -79,41 +77,18 @@ export function LaunchesPage() {
 
   return (
     <Container py={4} maxW="full" w="full" border="none">
-      <Flex mb={4} gap={3} flexDir={{ base: "column", md: "row" }} flexWrap="wrap">
-        <LaunchesSearchInput value={search} onChange={handleSearchChange} />
-        <FilterSelect
-          label="Filter by status"
-          value={success}
-          options={[
-            { label: "All", value: "" },
-            { label: "Success", value: "true" },
-            { label: "Failure", value: "false" },
-          ]}
-          onChange={handleSuccessChange}
-        />
-        <FilterSelect
-          label="Filter by schedule"
-          value={upcoming}
-          options={[
-            { label: "All", value: "" },
-            { label: "Upcoming", value: "true" },
-            { label: "Past", value: "false" },
-          ]}
-          onChange={handleUpcomingChange}
-        />
-        <DateInput
-          label="Date from"
-          value={dateFrom}
-          onChange={handleDateFromChange}
-          max={dateTo || undefined}
-        />
-        <DateInput
-          label="Date to"
-          value={dateTo}
-          onChange={handleDateToChange}
-          min={dateFrom || undefined}
-        />
-      </Flex>
+      <LaunchesFilters
+        search={search}
+        success={success}
+        upcoming={upcoming}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+        onSearchChange={handleSearchChange}
+        onSuccessChange={handleSuccessChange}
+        onUpcomingChange={handleUpcomingChange}
+        onDateFromChange={handleDateFromChange}
+        onDateToChange={handleDateToChange}
+      />
       {renderContent()}
     </Container>
   );
