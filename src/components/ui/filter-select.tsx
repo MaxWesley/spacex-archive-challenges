@@ -5,21 +5,23 @@ interface FilterOption {
   value: string;
 }
 
-interface LaunchesFilterSelectProps {
+interface FilterSelectProps {
   label: string;
   value: string;
   options: FilterOption[];
   onChange: (value: string) => void;
+  width?: Record<string, string> | string;
 }
 
-export function LaunchesFilterSelect({
+export function FilterSelect({
   label,
   value,
   options,
   onChange,
-}: LaunchesFilterSelectProps) {
+  width = { base: "full", md: "180px" },
+}: FilterSelectProps) {
   return (
-    <NativeSelect.Root size="md" width={{ base: "full", md: "180px" }}>
+    <NativeSelect.Root size="md" width={width}>
       <NativeSelect.Field
         aria-label={label}
         value={value}

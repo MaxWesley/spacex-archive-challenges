@@ -4,7 +4,7 @@ import { LaunchesPageSkeleton } from "../components/launches-page.skeleton";
 import { LaunchesPageErrorState } from "../components/launches-page-error-state";
 import { LaunchesPagination } from "../components/launches-pagination";
 import { LaunchesSearchInput } from "../components/launches-search-input";
-import { LaunchesFilterSelect } from "../components/launches-filter-select";
+import { FilterSelect } from "@/components/ui/filter-select";
 import { useLaunchesPage } from "../hooks/use-launches-page";
 
 export function LaunchesPage() {
@@ -76,7 +76,7 @@ export function LaunchesPage() {
     <Container py={4} maxW="full" w="full" border="none">
       <Flex mb={4} gap={3} flexDir={{ base: "column", md: "row" }}>
         <LaunchesSearchInput value={search} onChange={handleSearchChange} />
-        <LaunchesFilterSelect
+        <FilterSelect
           label="Filter by status"
           value={success}
           options={[
@@ -86,7 +86,7 @@ export function LaunchesPage() {
           ]}
           onChange={handleSuccessChange}
         />
-        <LaunchesFilterSelect
+        <FilterSelect
           label="Filter by schedule"
           value={upcoming}
           options={[
