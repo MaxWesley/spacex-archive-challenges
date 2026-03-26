@@ -3,7 +3,7 @@ import { Box, Button, Container, Heading, Text, VStack } from "@chakra-ui/react"
 import { Helmet } from "react-helmet-async";
 import { LuBug } from "react-icons/lu";
 
-function BrokenComponent() {
+function BrokenComponent(): never {
   throw new Error("This is a simulated error to test the Error Boundary.");
 }
 
@@ -23,14 +23,11 @@ export function ErrorTestPage() {
         <Heading size={{ base: "lg", md: "xl" }}>Error Boundary Test</Heading>
 
         <Text color="fg.muted" maxW="md">
-          Click the button below to throw a runtime error and trigger the Error Boundary fallback UI.
+          Click the button below to throw a runtime error and trigger the Error Boundary fallback
+          UI.
         </Text>
 
-        <Button
-          onClick={() => setShouldCrash(true)}
-          size="lg"
-          colorPalette="red"
-        >
+        <Button onClick={() => setShouldCrash(true)} size="lg" colorPalette="red">
           Trigger Error
         </Button>
 

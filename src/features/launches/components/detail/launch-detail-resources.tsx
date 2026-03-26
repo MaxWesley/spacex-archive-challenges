@@ -51,46 +51,46 @@ export function LaunchDetailResources({ resources }: LaunchDetailResourcesProps)
             }}
           >
             {items.map((r) => {
-            const Icon = getIcon(r.label);
-            return (
-              <Button
-                key={r.href}
-                asChild
-                variant="solid"
-                bg="whiteAlpha.100"
-                _hover={{ bg: "whiteAlpha.200" }}
-                borderWidth="1px"
-                borderColor="whiteAlpha.200"
-                h={{ base: "72px", sm: "92px" }}
-                w="full"
-                borderRadius="none"
-                px={4}
-              >
-                <a href={r.href} target="_blank" rel="noreferrer">
-                  <Flex
-                    h="full"
-                    w="full"
-                    direction="column"
-                    align="center"
-                    justify="center"
-                    gap={2}
-                  >
-                    <Box opacity={0.9} fontSize="22px" lineHeight={1}>
-                      <Icon color="white" />
-                    </Box>
-                    <Text
-                      fontSize="10px"
-                      color="white"
-                      fontWeight="bold"
-                      letterSpacing="wider"
-                      textTransform="uppercase"
+              const Icon = getIcon(r.label);
+              return (
+                <Button
+                  key={r.href}
+                  asChild
+                  variant="solid"
+                  bg="whiteAlpha.100"
+                  _hover={{ bg: "whiteAlpha.200" }}
+                  borderWidth="1px"
+                  borderColor="whiteAlpha.200"
+                  h={{ base: "72px", sm: "92px" }}
+                  w="full"
+                  borderRadius="none"
+                  px={4}
+                >
+                  <a href={r.href} target="_blank" rel="noreferrer">
+                    <Flex
+                      h="full"
+                      w="full"
+                      direction="column"
+                      align="center"
+                      justify="center"
+                      gap={2}
                     >
-                      {r.label}
-                    </Text>
-                  </Flex>
-                </a>
-              </Button>
-            );
+                      <Box opacity={0.9} fontSize="22px" lineHeight={1}>
+                        <Icon color="white" />
+                      </Box>
+                      <Text
+                        fontSize="10px"
+                        color="white"
+                        fontWeight="bold"
+                        letterSpacing="wider"
+                        textTransform="uppercase"
+                      >
+                        {r.label}
+                      </Text>
+                    </Flex>
+                  </a>
+                </Button>
+              );
             })}
           </Grid>
         </Box>

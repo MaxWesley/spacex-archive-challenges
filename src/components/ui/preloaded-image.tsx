@@ -31,7 +31,7 @@ export function PreloadedImage({
   const [state, setState] = useState<ImageState>("loading");
 
   useEffect(() => {
-    setState("loading");
+    setState("loading"); // eslint-disable-line react-hooks/set-state-in-effect
 
     let cancelled = false;
     const img = new window.Image();

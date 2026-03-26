@@ -25,7 +25,7 @@ interface PaginatedApiResponse<Payload> {
 }
 
 export async function getLaunches({ page = 1, limit = 12, ...params }: GetLaunchesParams) {
-  const query: any = {};
+  const query: Record<string, unknown> = {};
 
   if (params.search) {
     query.name = { $regex: params.search, $options: "i" };
@@ -40,10 +40,10 @@ export async function getLaunches({ page = 1, limit = 12, ...params }: GetLaunch
   }
 
   if (params.dateFrom || params.dateTo) {
-    query.date_utc = {};
-    if (params.dateFrom) query.date_utc.$gte = params.dateFrom;
-    // TODO: podemos substituir pelo método endOfDay() do date-fns, mas não é necessário para o desafio
-    if (params.dateTo) query.date_utc.$lte = `${params.dateTo}T23:59:59.999Z`;
+    const dateFilter: Record<string, string> = {};
+    if (params.dateFrom) dateFilter.$gte = params.dateFrom;
+    if (params.dateTo) dateFilter.$lte = `${params.dateTo}T23:59:59.999Z`;
+    query.date_utc = dateFilter;
   }
 
   const { data } = await api.post<PaginatedApiResponse<Launch>>("/launches/query", {

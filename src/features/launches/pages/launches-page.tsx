@@ -48,10 +48,7 @@ export function LaunchesPage() {
 
     if (launches.length === 0) {
       return (
-        <LaunchesEmptyState
-          hasActiveFilters={hasActiveFilters}
-          onReset={handleResetFilters}
-        />
+        <LaunchesEmptyState hasActiveFilters={hasActiveFilters} onReset={handleResetFilters} />
       );
     }
 

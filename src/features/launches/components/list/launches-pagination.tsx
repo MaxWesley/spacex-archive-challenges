@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Stack, Text, Icon, Flex, Span } from "@chakra-ui/react";
+import { Box, Button, HStack, Stack, Text, Icon, Flex } from "@chakra-ui/react";
 import { LuChevronLeft, LuChevronRight } from "react-icons/lu";
 
 interface LaunchesPaginationProps {

@@ -32,7 +32,13 @@ export function LaunchesFiltersDrawer({
   return (
     <Drawer.Root placement="end">
       <Drawer.Trigger asChild>
-        <Button variant="outline" size="md" textTransform="uppercase" letterSpacing="wider" position="relative">
+        <Button
+          variant="outline"
+          size="md"
+          textTransform="uppercase"
+          letterSpacing="wider"
+          position="relative"
+        >
           Advanced_filters
           {activeFilterCount > 0 && (
             <Box
@@ -114,12 +120,7 @@ export function LaunchesFiltersDrawer({
           </Drawer.Body>
           {hasActiveFilters && (
             <Drawer.Footer>
-              <Button
-                variant="outline"
-                colorPalette="red"
-                width="full"
-                onClick={onReset}
-              >
+              <Button variant="outline" colorPalette="red" width="full" onClick={onReset}>
                 Reset filters
               </Button>
             </Drawer.Footer>

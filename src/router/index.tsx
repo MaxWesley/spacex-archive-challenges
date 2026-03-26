@@ -7,9 +7,7 @@ import { ErrorFallback } from "@/components/error-boundary/error-fallback";
 
 function RouteErrorBoundary({ children }: { children: React.ReactNode }) {
   return (
-    <ErrorBoundary
-      fallback={(error, reset) => <ErrorFallback error={error} onReset={reset} />}
-    >
+    <ErrorBoundary fallback={(error, reset) => <ErrorFallback error={error} onReset={reset} />}>
       {children}
     </ErrorBoundary>
   );
@@ -19,9 +17,30 @@ export function Router() {
   return (
     <Routes>
       <Route path="/" element={<Navigate to="/launches" replace />} />
-      <Route path="/launches" element={<RouteErrorBoundary><LaunchesPage /></RouteErrorBoundary>} />
-      <Route path="/launches/:id" element={<RouteErrorBoundary><LaunchDetailPage /></RouteErrorBoundary>} />
-      <Route path="/error-test" element={<RouteErrorBoundary><ErrorTestPage /></RouteErrorBoundary>} />
+      <Route
+        path="/launches"
+        element={
+          <RouteErrorBoundary>
+            <LaunchesPage />
+          </RouteErrorBoundary>
+        }
+      />
+      <Route
+        path="/launches/:id"
+        element={
+          <RouteErrorBoundary>
+            <LaunchDetailPage />
+          </RouteErrorBoundary>
+        }
+      />
+      <Route
+        path="/error-test"
+        element={
+          <RouteErrorBoundary>
+            <ErrorTestPage />
+          </RouteErrorBoundary>
+        }
+      />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );

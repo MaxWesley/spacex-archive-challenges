@@ -32,10 +32,7 @@ export function LaunchDetailPage() {
     day: "numeric",
   });
 
-  const rocketLabel =
-    typeof data?.rocket === "object" && data.rocket
-      ? data.rocket.name
-      : null;
+  const rocketLabel = typeof data?.rocket === "object" && data.rocket ? data.rocket.name : null;
 
   const launchSiteLabel =
     typeof data?.launchpad === "object" && data.launchpad

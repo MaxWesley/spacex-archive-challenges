@@ -5,10 +5,7 @@ interface LaunchesPageErrorStateProps {
   onRetry?: () => void;
 }
 
-export function LaunchesPageErrorState({
-  message,
-  onRetry,
-}: LaunchesPageErrorStateProps) {
+export function LaunchesPageErrorState({ message, onRetry }: LaunchesPageErrorStateProps) {
   return (
     <Container py={4} maxW="full" w="full" border="none">
       <Center>

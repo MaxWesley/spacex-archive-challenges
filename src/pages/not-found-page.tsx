@@ -24,7 +24,12 @@ export function NotFoundPage() {
           The page you're looking for doesn't exist or has been moved. Maybe it launched into orbit?
         </Text>
 
-        <Button onClick={() => navigate("/launches")} size="lg" variant="outline" colorPalette="blue">
+        <Button
+          onClick={() => navigate("/launches")}
+          size="lg"
+          variant="outline"
+          colorPalette="blue"
+        >
           Back to Launches
         </Button>
       </VStack>

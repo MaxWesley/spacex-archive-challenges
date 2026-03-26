@@ -11,7 +11,11 @@ export function LaunchDetailPageSkeleton() {
       <Box maxW="6xl" mx="auto" px={{ base: 4, md: 6 }}>
         <Skeleton h="32px" w="110px" mb={6} />
 
-        <Flex gap={{ base: 6, md: 10 }} direction={{ base: "column", md: "row" }} align={{ md: "center" }}>
+        <Flex
+          gap={{ base: 6, md: 10 }}
+          direction={{ base: "column", md: "row" }}
+          align={{ md: "center" }}
+        >
           <Box
             w={{ base: "full", md: "320px" }}
             maxW={{ base: "360px", md: "320px" }}
@@ -76,13 +80,22 @@ export function LaunchDetailPageSkeleton() {
         </Box>
 
         <Box mt={12} bg="blackAlpha.500" p={4}>
-          <Flex gap={{ base: 6, md: 10 }} direction={{ base: "column", md: "row" }} justify="space-between">
+          <Flex
+            gap={{ base: 6, md: 10 }}
+            direction={{ base: "column", md: "row" }}
+            justify="space-between"
+          >
             <Box flex={1}>
               <Skeleton h="26px" w="240px" />
               <Skeleton mt={3} h="14px" w={{ base: "90%", md: "75%" }} />
               <Skeleton mt={2} h="14px" w={{ base: "85%", md: "65%" }} />
             </Box>
-            <SimpleGrid gap={3} columns={{ base: 1, sm: 3 }} flex={1} maxW={{ base: "full", md: "520px" }}>
+            <SimpleGrid
+              gap={3}
+              columns={{ base: 1, sm: 3 }}
+              flex={1}
+              maxW={{ base: "full", md: "520px" }}
+            >
               {Array.from({ length: 3 }).map((_, idx) => (
                 <Skeleton key={idx} h={{ base: "72px", sm: "92px" }} />
               ))}
@@ -93,4 +106,3 @@ export function LaunchDetailPageSkeleton() {
     </Box>
   );
 }
-

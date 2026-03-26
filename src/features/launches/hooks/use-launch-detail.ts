@@ -34,7 +34,10 @@ export function useLaunchDetail() {
     navigate("/launches?page=1", { replace: true });
   };
 
-  const crew = Array.isArray((query.data as any)?.crew) ? ((query.data as any).crew as any[]) : [];
+  const raw = query.data as Record<string, unknown> | undefined;
+  const crew = Array.isArray(raw?.crew)
+    ? (raw.crew as Array<{ name: string; agency?: string | null; image?: string | null; wikipedia?: string | null }>)
+    : [];
   return {
     id,
     data: query.data,
