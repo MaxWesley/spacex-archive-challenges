@@ -8,7 +8,7 @@ export function useLaunchesPage() {
   const page = Number.isFinite(pageParam) && pageParam >= 1 ? pageParam : 1;
   const search = searchParams.get("search") ?? "";
 
-  const { data, isLoading, error, refetch } = useLaunches({
+  const { data, isLoading, isFetching, error, refetch } = useLaunches({
     page,
     search: search || undefined,
   });
@@ -50,6 +50,7 @@ export function useLaunchesPage() {
   return {
     launches: data?.docs ?? [],
     isLoading,
+    isFetching,
     error,
     refetch,
     search,

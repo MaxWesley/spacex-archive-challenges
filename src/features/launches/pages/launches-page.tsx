@@ -10,6 +10,7 @@ export function LaunchesPage() {
   const {
     launches,
     isLoading,
+    isFetching,
     error,
     refetch,
     search,
@@ -34,7 +35,11 @@ export function LaunchesPage() {
       );
 
     return (
-      <>
+      <Box
+        opacity={isFetching ? 0.5 : 1}
+        transition="opacity 0.3s ease"
+        pointerEvents={isFetching ? "none" : "auto"}
+      >
         <Grid
           gap={4}
           templateColumns={{
@@ -58,7 +63,7 @@ export function LaunchesPage() {
           onPrev={handlePrevPage}
           onNext={handleNextPage}
         />
-      </>
+      </Box>
     );
   };
 

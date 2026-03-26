@@ -1,4 +1,4 @@
-import { Box, Image, Skeleton } from "@chakra-ui/react";
+import { Box, Image } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 type ImageState = "loading" | "loaded" | "error";
@@ -60,7 +60,7 @@ export function PreloadedImage({
 
   return (
     <Box position="relative" overflow="hidden" borderRadius={borderRadius ?? rounded} w={w} h={h}>
-      {state === "loading" ? <Skeleton rounded={rounded} w={w} h={h} /> : null}
+      {/* {state === "loading" ? <Box rounded={rounded} w={w} h={h} /> : null} */}
       {state === "loaded" ? (
         <Image
           position="absolute"
@@ -98,4 +98,3 @@ export function PreloadedImage({
     </Box>
   );
 }
-
