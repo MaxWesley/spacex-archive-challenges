@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { Box, Text, Image, Badge, Flex, Center, Skeleton } from "@chakra-ui/react";
+import { Box, Text, Badge, Flex, Center } from "@chakra-ui/react";
 import { getLaunchDate, getLaunchImageSrc, getLaunchStatus } from "../utils/launch.utils";
 import type { Launch } from "../types/launch";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { PreloadedImage } from "@/components/ui/preloaded-image";
 
 interface LaunchCardProps {
   launch: Launch;
@@ -10,16 +10,12 @@ interface LaunchCardProps {
 
 export function LaunchCard({ launch }: LaunchCardProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const imageSrc = getLaunchImageSrc(launch);
   const status = getLaunchStatus(launch);
   const date = getLaunchDate(launch);
   const name = launch.name.toUpperCase();
   const launchpad = launch.launchpad.name + " • " + launch.launchpad.locality;
-  const [imgLoaded, setImgLoaded] = useState(false);
-
-  useEffect(() => {
-    setImgLoaded(false);
-  }, [imageSrc]);
 
   return (
     <Box
@@ -27,7 +23,9 @@ export function LaunchCard({ launch }: LaunchCardProps) {
       borderWidth="1px"
       minH={300}
       cursor="pointer"
-      onClick={() => navigate(`/launches/${launch.id}`)}
+      onClick={() =>
+        navigate(`/launches/${launch.id}`, { state: { from: location.pathname + location.search } })
+      }
       _hover={{
         transform: "scale(1.02)",
         transition: "0.2s",
@@ -35,33 +33,7 @@ export function LaunchCard({ launch }: LaunchCardProps) {
     >
       <Center>
         <Flex flexDir="column" alignItems="center">
-          {imgLoaded ? (
-            <Image
-              rounded="xs"
-              src={imageSrc}
-              alt={name}
-              w={160}
-              h={160}
-              objectFit="cover"
-            />
-          ) : (
-            <Box position="relative" overflow="hidden" borderRadius="xs" w={160} h={160}>
-              <Skeleton rounded="xs" w={160} h={160} />
-              <Image
-                position="absolute"
-                top={0}
-                left={0}
-                w={160}
-                h={160}
-                objectFit="cover"
-                rounded="xs"
-                src={imageSrc}
-                alt={name}
-                opacity={0}
-                onLoad={() => setImgLoaded(true)}
-              />
-            </Box>
-          )}
+          <PreloadedImage src={imageSrc} alt={name} w={160} h={160} rounded="xs" />
           <Box mt={8}>
             <Flex mb={4} justifyContent="space-between" alignItems="center">
               <Badge

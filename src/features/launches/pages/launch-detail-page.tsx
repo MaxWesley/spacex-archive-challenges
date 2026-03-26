@@ -1,10 +1,12 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "@/lib/axios";
-import { Box, Text, Image, Container } from "@chakra-ui/react";
+import { Box, Button, Container, Text } from "@chakra-ui/react";
+import { PreloadedImage } from "@/components/ui/preloaded-image";
 
 export function LaunchDetailPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data, isLoading } = useQuery({
     queryKey: ["launch", id],
@@ -17,13 +19,19 @@ export function LaunchDetailPage() {
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>Not found</p>;
 
-  const image =
+  const imageSrc =
     data.links.patch.small || data.links.flickr.original[0] || "/launch-placeholder.png";
 
   return (
     <Container py={6}>
+      <Box mb={4}>
+        <Button variant="outline" onClick={() => navigate(-1)}>
+          Voltar
+        </Button>
+      </Box>
+
       <Box display="flex" flexDir="column" alignItems="center">
-        <Image src={image} alt={data.name} w={200} mb={4} />
+        <PreloadedImage src={imageSrc} alt={data.name} w={200} h={200} mb={4} rounded="md" />
 
         <Text fontSize="2xl" fontWeight="bold">
           {data.name}
