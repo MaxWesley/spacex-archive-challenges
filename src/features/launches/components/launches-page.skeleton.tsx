@@ -1,9 +1,8 @@
-import { Box, Center, Container, Grid, Flex, Skeleton } from "@chakra-ui/react";
+import { Box, Center, Grid, Flex, Skeleton } from "@chakra-ui/react";
 
 export function LaunchesPageSkeleton() {
   return (
-    <Container py={4} maxW="full" w="full" border="none">
-      <Box>
+    <Box>
         <Grid
           gap={4}
           templateColumns={{
@@ -36,6 +35,5 @@ export function LaunchesPageSkeleton() {
           ))}
         </Grid>
       </Box>
-    </Container>
   );
 }
