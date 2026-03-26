@@ -42,6 +42,7 @@ export async function getLaunches({ page = 1, limit = 12, ...params }: GetLaunch
   if (params.dateFrom || params.dateTo) {
     query.date_utc = {};
     if (params.dateFrom) query.date_utc.$gte = params.dateFrom;
+    // TODO: podemos substituir pelo método endOfDay() do date-fns, mas não é necessário para o desafio
     if (params.dateTo) query.date_utc.$lte = `${params.dateTo}T23:59:59.999Z`;
   }
 
