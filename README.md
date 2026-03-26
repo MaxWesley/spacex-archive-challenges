@@ -2,7 +2,7 @@
 
 SPA para consultar o histórico de lançamentos da SpaceX, construída com React, TypeScript e Vite.
 
-**[Acessar deploy ao vivo](https://spacex-archive-challenge.vercel.app/)**
+**[Acessar deploy](https://spacex-archive-challenge.vercel.app/)** · [Exemplo de detalhe de lançamento](https://spacex-archive-challenge.vercel.app/launches/5fe3af58b3467846b324215f)
 
 ![Demonstração da aplicação](./docs/gifs/demo.gif)
 
@@ -25,34 +25,38 @@ A aplicação estará disponível em `http://localhost:5173`.
 
 ## Scripts disponíveis
 
-| Script           | Comando                  | Descrição                           |
-| ---------------- | ------------------------ | ----------------------------------- |
-| `dev`            | `vite`                   | Servidor de desenvolvimento com HMR |
-| `build`          | `tsc -b && vite build`   | Type-check + build de produção      |
-| `preview`        | `vite preview`           | Preview local do build de produção  |
-| `lint`           | `eslint .`               | Linting via ESLint                  |
-| `format`         | `prettier --write .`     | Formatação via Prettier             |
-| `test`           | `vitest run`             | Executa todos os testes             |
-| `test:watch`     | `vitest`                 | Testes em modo watch                |
-| `test:coverage`  | `vitest run --coverage`  | Testes com relatório de cobertura   |
-| `storybook`      | `storybook dev -p 6006`  | Storybook em modo desenvolvimento   |
-| `build-storybook`| `storybook build`        | Build estático do Storybook         |
+| Script            | Comando                 | Descrição                           |
+| ----------------- | ----------------------- | ----------------------------------- |
+| `dev`             | `vite`                  | Servidor de desenvolvimento com HMR |
+| `build`           | `tsc -b && vite build`  | Type-check + build de produção      |
+| `preview`         | `vite preview`          | Preview local do build de produção  |
+| `lint`            | `eslint .`              | Linting via ESLint                  |
+| `format`          | `prettier --write .`    | Formatação via Prettier             |
+| `test`            | `vitest run`            | Executa todos os testes             |
+| `test:watch`      | `vitest`                | Testes em modo watch                |
+| `test:coverage`   | `vitest run --coverage` | Testes com relatório de cobertura   |
+| `storybook`       | `storybook dev -p 6006` | Storybook em modo desenvolvimento   |
+| `build-storybook` | `storybook build`       | Build estático do Storybook         |
 
 ## Stack e design system
 
-| Camada        | Tecnologia                   |
-| ------------- | ---------------------------- |
-| Framework     | React 19 + TypeScript        |
-| Bundler       | Vite 8                       |
-| Roteamento    | React Router v7              |
-| Data fetching | TanStack Query v5            |
-| HTTP client   | Axios                        |
-| Design system | **Chakra UI v3**             |
-| Testes        | Vitest + RTL + MSW           |
-| Cobertura     | @vitest/coverage-v8          |
-| Storybook     | Storybook 10 + addon-a11y   |
-| Lint/Format   | ESLint + Prettier            |
-| Deploy        | Vercel                       |
+| Camada        | Tecnologia                |
+| ------------- | ------------------------- |
+| Framework     | React 19 + TypeScript     |
+| Bundler       | Vite 8                    |
+| Roteamento    | React Router v7           |
+| Data fetching | TanStack Query v5         |
+| HTTP client   | Axios                     |
+| Design system | **Chakra UI v3**          |
+| Testes        | Vitest + RTL + MSW        |
+| Cobertura     | @vitest/coverage-v8       |
+| Storybook     | Storybook 10 + addon-a11y |
+| Lint/Format   | ESLint + Prettier         |
+| Deploy        | Vercel                    |
+
+### Identidade visual
+
+A interface foi pensada com uma estética inspirada em terminais e painéis de controle de missão — um visual sci-fi minimalista com tipografia técnica, bordas sutis e alto contraste. A ideia é que a experiência de navegação remeta ao próprio painel de foguetes (ou como eu acho que eles se parecem).
 
 ### Por que Chakra UI?
 
@@ -107,16 +111,16 @@ O projeto possui **107 testes** distribuídos em **25 suites**, cobrindo compone
 
 ### Distribuição dos testes
 
-| Camada                   | Suites | Casos |
-| ------------------------ | ------ | ----- |
-| Componentes UI           | 3      | 13    |
-| Componentes list/        | 5      | 21    |
-| Componentes detail/      | 6      | 27    |
-| Hooks                    | 3      | 14    |
-| Utils                    | 1      | 12    |
-| Services                 | 1      | 3     |
-| Pages (integração)       | 3      | 10    |
-| Error Boundary + pages   | 3      | 7     |
+| Camada                 | Suites | Casos |
+| ---------------------- | ------ | ----- |
+| Componentes UI         | 3      | 13    |
+| Componentes list/      | 5      | 21    |
+| Componentes detail/    | 6      | 27    |
+| Hooks                  | 3      | 14    |
+| Utils                  | 1      | 12    |
+| Services               | 1      | 3     |
+| Pages (integração)     | 3      | 10    |
+| Error Boundary + pages | 3      | 7     |
 
 Para rodar os testes com cobertura:
 
