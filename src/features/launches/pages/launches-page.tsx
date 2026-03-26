@@ -1,13 +1,15 @@
-import { useState } from "react";
 import { useLaunches } from "../hooks/use-launches";
 import { Box, Grid, Container } from "@chakra-ui/react";
 import { LaunchCard } from "../components/launch-card";
 import { LaunchesPageSkeleton } from "../components/launches-page.skeleton";
 import { LaunchesPageErrorState } from "../components/launches-page-error-state";
 import { LaunchesPagination } from "../components/launches-pagination";
+import { useSearchParams } from "react-router-dom";
 
 export function LaunchesPage() {
-  const [page, setPage] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pageParam = Number(searchParams.get("page") ?? "1");
+  const page = Number.isFinite(pageParam) && pageParam >= 1 ? pageParam : 1;
   const { data, isLoading, error, refetch } = useLaunches({ page });
 
   if (isLoading) return <LaunchesPageSkeleton />;
@@ -47,8 +49,20 @@ export function LaunchesPage() {
           totalDocs={totalDocs}
           hasPrevPage={hasPrevPage}
           hasNextPage={hasNextPage}
-          onPrev={() => setPage((p) => Math.max(1, p - 1))}
-          onNext={() => setPage((p) => Math.min(totalPages, p + 1))}
+          onPrev={() =>
+            setSearchParams((prev) => {
+              const next = new URLSearchParams(prev);
+              next.set("page", String(Math.max(1, page - 1)));
+              return next;
+            })
+          }
+          onNext={() =>
+            setSearchParams((prev) => {
+              const next = new URLSearchParams(prev);
+              next.set("page", String(Math.min(totalPages, page + 1)));
+              return next;
+            })
+          }
         />
       </Box>
     </Container>

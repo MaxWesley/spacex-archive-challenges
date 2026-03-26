@@ -1,4 +1,4 @@
-import { Box, Center, Container, Grid, Flex, Skeleton, Text } from "@chakra-ui/react";
+import { Box, Center, Container, Grid, Flex, Skeleton } from "@chakra-ui/react";
 
 export function LaunchesPageSkeleton() {
   return (
@@ -23,12 +23,12 @@ export function LaunchesPageSkeleton() {
                       <Skeleton height="20px" width="90px" borderRadius="md" />
                       <Skeleton height="14px" width="70px" borderRadius="md" />
                     </Flex>
-                    <Text fontWeight="bold" textAlign="left" mb={2}>
+                    <Box mb={2}>
                       <Skeleton height="18px" width="80%" borderRadius="md" />
-                    </Text>
-                    <Text fontWeight="light" fontSize="sm" textAlign="left">
+                    </Box>
+                    <Box>
                       <Skeleton height="14px" width="90%" borderRadius="md" />
-                    </Text>
+                    </Box>
                   </Box>
                 </Flex>
               </Center>
