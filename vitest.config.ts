@@ -18,7 +18,20 @@ export default defineConfig({
     coverage: {
       reporter: ["text", "lcov"],
       include: ["src/**/*.{ts,tsx}"],
-      exclude: ["src/**/*.d.ts", "src/main.tsx"],
+      exclude: [
+        "src/**/*.d.ts",
+        "src/main.tsx",
+        "src/App.tsx",
+        "src/router/**",
+        "src/components/ui/color-mode.tsx",
+        "src/components/ui/provider.tsx",
+        "src/components/ui/toaster.tsx",
+        "src/components/ui/tooltip.tsx",
+        "src/components/layouts/**",
+        "src/lib/react-query.ts",
+        "src/features/**/types/**",
+        "src/features/**/pages/index.ts",
+      ],
     },
   },
 });
