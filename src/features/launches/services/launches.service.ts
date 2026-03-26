@@ -26,7 +26,7 @@ export async function getLaunches({ page = 1, limit = 12, ...params }: GetLaunch
   const query: any = {};
 
   if (params.search) {
-    query.search = params.search;
+    query.name = { $regex: params.search, $options: "i" };
   }
 
   if (params.success !== undefined) {
