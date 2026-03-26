@@ -1,4 +1,5 @@
 import { Box, Flex, Grid, Container, Text } from "@chakra-ui/react";
+import { Helmet } from "react-helmet-async";
 import { LaunchCard } from "../components/list/launch-card";
 import { LaunchesPageSkeleton } from "../components/list/launches-page.skeleton";
 import { LaunchesPageErrorState } from "../components/list/launches-page-error-state";
@@ -89,6 +90,10 @@ export function LaunchesPage() {
 
   return (
     <Container py={6} maxW="full" w="full" border="none">
+      <Helmet>
+        <title>Launches — SpaceX</title>
+        <meta name="description" content="Browse and filter all SpaceX launches." />
+      </Helmet>
       <Box mb={6} borderBottomWidth="1px" pb={5}>
         <Flex
           gap={6}

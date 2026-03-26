@@ -14,6 +14,9 @@ export function AppShell({ children }: PropsWithChildren) {
               <Link asChild>
                 <RouterLink to="/">Launches</RouterLink>
               </Link>
+              <Link asChild color="red.400" fontSize="sm">
+                <RouterLink to="/error-test">Error Test</RouterLink>
+              </Link>
             </HStack>
             <ColorModeButton />
           </Flex>

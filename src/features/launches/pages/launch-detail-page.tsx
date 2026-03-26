@@ -1,4 +1,5 @@
 import { Box, Button, Container } from "@chakra-ui/react";
+import { Helmet } from "react-helmet-async";
 import { useLaunchDetail } from "../hooks/use-launch-detail";
 import { LaunchDetailHero } from "../components/detail/launch-detail-hero";
 import { LaunchDetailStats } from "../components/detail/launch-detail-stats";
@@ -56,6 +57,10 @@ export function LaunchDetailPage() {
       pt={{ base: 6, md: 10 }}
       pb={{ base: 10, md: 14 }}
     >
+      <Helmet>
+        <title>{`${data.name} — SpaceX`}</title>
+        <meta name="description" content={data.details ?? `Details for ${data.name} launch.`} />
+      </Helmet>
       <Container maxW="6xl">
         <Box mb={6}>
           <Button
