@@ -1,73 +1,120 @@
-# React + TypeScript + Vite
+# SpaceX Launch Archive
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SPA para consultar o histórico de lançamentos da SpaceX, construída com React, TypeScript e Vite.
 
-Currently, two official plugins are available:
+![Demonstração da aplicação](./docs/gifs/demo.gif)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Como rodar
 
-## React Compiler
+```bash
+# 1. Instalar dependências
+pnpm install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 2. Configurar variáveis de ambiente
+cp .env.example .env
+# Editar .env e definir:
+# VITE_API_BASE_URL=https://api.spacexdata.com/v4
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# 3. Iniciar o servidor de desenvolvimento
+pnpm dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+A aplicação estará disponível em `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x"
-import reactDom from "eslint-plugin-react-dom"
+## Scripts disponíveis
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+| Script    | Comando                          | Descrição                           |
+| --------- | -------------------------------- | ----------------------------------- |
+| `dev`     | `vite`                           | Servidor de desenvolvimento com HMR |
+| `build`   | `tsc -b && vite build`           | Type-check + build de produção      |
+| `preview` | `vite preview`                   | Preview local do build de produção  |
+| `lint`    | `eslint .`                       | Linting via ESLint                  |
+| `format`  | `prettier --write .`             | Formatação via Prettier             |
+| `gifs`    | `node scripts/generate-gifs.mjs` | Gera o GIF único da seção Demo      |
+
+## Stack e design system
+
+| Camada        | Tecnologia            |
+| ------------- | --------------------- |
+| Framework     | React 19 + TypeScript |
+| Bundler       | Vite 8                |
+| Roteamento    | React Router v7       |
+| Data fetching | TanStack Query v5     |
+| HTTP client   | Axios                 |
+| Design system | **Chakra UI v3**      |
+| Testes        | Vitest + MSW          |
+| Lint/Format   | ESLint + Prettier     |
+
+### Por que Chakra UI?
+
+- API declarativa com props de estilo — produtividade alta sem CSS externo.
+- Suporte nativo a dark mode via `next-themes`.
+- Componentes acessíveis por padrão (foco, aria, teclado).
+- Boa integração com TypeScript (props tipadas).
+
+## Funcionalidades
+
+### Lista de lançamentos
+
+- Listagem paginada com cards visuais (imagem, nome, status, rocket, launchpad, data).
+- Busca por nome com debounce (400ms).
+- Filtros avançados via drawer: status (sucesso/falha), agenda (próximos/passados), intervalo de datas.
+- Paginação com navegação anterior/próxima.
+- Estados de loading (skeleton), erro (retry) e empty state.
+- Filtros persistidos na URL via query string — compartilhável e preservado ao voltar do detalhe.
+
+### Detalhe do lançamento
+
+- Carregamento por ID via API com populate de rocket, launchpad e crew.
+- Hero com patch da missão, flight serial, nome e descrição.
+- Stats: status (com indicador animado), data, rocket e launch site.
+- Galeria de fotos da missão (Flickr) quando disponível.
+- Composição da tripulação com fotos e links para Wikipedia.
+- Links de recursos: webcast, wiki, artigo.
+- Botão voltar que preserva o estado da lista.
+
+### UI/UX
+
+- Dark mode com toggle persistente.
+- Layout responsivo (mobile-first).
+- Navegação por teclado nos cards (Tab + Enter/Space).
+- Header sticky com navegação e toggle de tema.
+
+## Estrutura do projeto
+
 ```
+src/
+├── components/
+│   ├── layouts/          # AppShell (header + main)
+│   └── ui/               # Componentes reutilizáveis (PreloadedImage, FilterSelect, DateInput, etc.)
+├── features/
+│   └── launches/
+│       ├── components/
+│       │   ├── list/     # LaunchCard, Filters, Pagination, Skeleton, EmptyState, ErrorState
+│       │   └── detail/   # Hero, Stats, Gallery, Crew, Resources, Skeleton
+│       ├── hooks/        # useLaunches, useLaunchesPage, useLaunchDetail
+│       ├── pages/        # LaunchesPage, LaunchDetailPage
+│       ├── services/     # launches.service (+ testes)
+│       ├── types/        # Launch type
+│       └── utils/        # launch.utils (imagem, status, data)
+└── lib/                  # Axios instance
+```
+
+## Limitações e próximos passos
+
+### Limitações atuais
+
+- Testes cobrem apenas a camada de service (unit + MSW). Não há testes de componente ou integração com RTL.
+- Não há Error Boundary global — erros não capturados crasham a aplicação.
+- Sem metadados por rota (title/description dinâmicos).
+- Galeria do detalhe não possui lightbox/zoom.
+- O campo `type` do rocket vindo da API é sempre `"rocket"` (literal), então não é exibido.
+
+### Próximos passos
+
+- Expandir testes para componentes e integração (Vitest + RTL + jsdom).
+- Adicionar Error Boundary com fallback UI.
+- Implementar metadados por rota via React Helmet.
+- Adicionar Storybook para documentação visual de componentes.
+- Explorar micro-frontends (Module Federation) para escalar a arquitetura.
+- Adicionar pipeline CI/CD (GitHub Actions) com lint, test e build.
