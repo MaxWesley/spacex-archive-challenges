@@ -4,6 +4,7 @@ import { LaunchDetailHero } from "../components/detail/launch-detail-hero";
 import { LaunchDetailStats } from "../components/detail/launch-detail-stats";
 import { LaunchDetailResources } from "../components/detail/launch-detail-resources";
 import { LaunchDetailCrew } from "../components/detail/launch-detail-crew";
+import { LaunchDetailGallery } from "../components/detail/launch-detail-gallery";
 import { LaunchDetailPageSkeleton } from "../components/detail/launch-detail-page.skeleton";
 
 export function LaunchDetailPage() {
@@ -39,6 +40,8 @@ export function LaunchDetailPage() {
     typeof data?.launchpad === "object" && data.launchpad
       ? `${data.launchpad.name}${data.launchpad.locality ? ` • ${data.launchpad.locality}` : ""}`
       : null;
+
+  const galleryImages = data?.links?.flickr?.original?.filter(Boolean) ?? [];
 
   const resources = [
     data?.links?.webcast ? { label: "Watch webcast", href: String(data.links.webcast) } : null,
@@ -79,6 +82,8 @@ export function LaunchDetailPage() {
           rocketLabel={rocketLabel}
           launchSiteLabel={launchSiteLabel}
         />
+
+        <LaunchDetailGallery images={galleryImages} />
 
         <LaunchDetailCrew crew={crew} />
 
