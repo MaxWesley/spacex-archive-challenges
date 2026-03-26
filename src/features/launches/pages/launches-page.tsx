@@ -2,6 +2,7 @@ import { Box, Flex, Grid, Container, Text } from "@chakra-ui/react";
 import { LaunchCard } from "../components/launch-card";
 import { LaunchesPageSkeleton } from "../components/launches-page.skeleton";
 import { LaunchesPageErrorState } from "../components/launches-page-error-state";
+import { LaunchesEmptyState } from "../components/launches-empty-state";
 import { LaunchesPagination } from "../components/launches-pagination";
 import { LaunchesFilters } from "../components/launches-filters";
 import { useLaunchesPage } from "../hooks/use-launches-page";
@@ -43,6 +44,15 @@ export function LaunchesPage() {
           onRetry={refetch}
         />
       );
+
+    if (launches.length === 0) {
+      return (
+        <LaunchesEmptyState
+          hasActiveFilters={hasActiveFilters}
+          onReset={handleResetFilters}
+        />
+      );
+    }
 
     return (
       <Box
