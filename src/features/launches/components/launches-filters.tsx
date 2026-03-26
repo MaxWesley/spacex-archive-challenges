@@ -1,7 +1,6 @@
 import { Flex } from "@chakra-ui/react";
 import { LaunchesSearchInput } from "./launches-search-input";
-import { FilterSelect } from "@/components/ui/filter-select";
-import { DateInput } from "@/components/ui/date-input";
+import { LaunchesFiltersDrawer } from "./launches-filters-drawer";
 
 interface LaunchesFiltersProps {
   search: string;
@@ -9,11 +8,13 @@ interface LaunchesFiltersProps {
   upcoming: string;
   dateFrom: string;
   dateTo: string;
+  hasActiveFilters: boolean;
   onSearchChange: (value: string) => void;
   onSuccessChange: (value: string) => void;
   onUpcomingChange: (value: string) => void;
   onDateFromChange: (value: string) => void;
   onDateToChange: (value: string) => void;
+  onReset: () => void;
 }
 
 export function LaunchesFilters({
@@ -22,46 +23,28 @@ export function LaunchesFilters({
   upcoming,
   dateFrom,
   dateTo,
+  hasActiveFilters,
   onSearchChange,
   onSuccessChange,
   onUpcomingChange,
   onDateFromChange,
   onDateToChange,
+  onReset,
 }: LaunchesFiltersProps) {
   return (
-    <Flex mb={4} gap={3} flexDir={{ base: "column", md: "row" }} flexWrap="wrap">
+    <Flex gap={3} flexDir={{ base: "column", md: "row" }} align={{ md: "center" }}>
       <LaunchesSearchInput value={search} onChange={onSearchChange} />
-      <FilterSelect
-        label="Filter by status"
-        value={success}
-        options={[
-          { label: "All", value: "" },
-          { label: "Success", value: "true" },
-          { label: "Failure", value: "false" },
-        ]}
-        onChange={onSuccessChange}
-      />
-      <FilterSelect
-        label="Filter by schedule"
-        value={upcoming}
-        options={[
-          { label: "All", value: "" },
-          { label: "Upcoming", value: "true" },
-          { label: "Past", value: "false" },
-        ]}
-        onChange={onUpcomingChange}
-      />
-      <DateInput
-        label="Date from"
-        value={dateFrom}
-        onChange={onDateFromChange}
-        max={dateTo || undefined}
-      />
-      <DateInput
-        label="Date to"
-        value={dateTo}
-        onChange={onDateToChange}
-        min={dateFrom || undefined}
+      <LaunchesFiltersDrawer
+        success={success}
+        upcoming={upcoming}
+        dateFrom={dateFrom}
+        dateTo={dateTo}
+        hasActiveFilters={hasActiveFilters}
+        onSuccessChange={onSuccessChange}
+        onUpcomingChange={onUpcomingChange}
+        onDateFromChange={onDateFromChange}
+        onDateToChange={onDateToChange}
+        onReset={onReset}
       />
     </Flex>
   );

@@ -85,6 +85,12 @@ export function useLaunchesPage() {
     updateParams({ page: String(Math.min(totalPages, page + 1)) });
   };
 
+  const handleResetFilters = () => {
+    setSearchParams({});
+  };
+
+  const hasActiveFilters = !!(search || successParam || upcomingParam || dateFrom || dateTo);
+
   return {
     launches: data?.docs ?? [],
     isLoading,
@@ -108,5 +114,7 @@ export function useLaunchesPage() {
     handleDateToChange,
     handlePrevPage,
     handleNextPage,
+    handleResetFilters,
+    hasActiveFilters,
   };
 }
