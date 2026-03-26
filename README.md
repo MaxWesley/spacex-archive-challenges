@@ -2,6 +2,8 @@
 
 SPA para consultar o histórico de lançamentos da SpaceX, construída com React, TypeScript e Vite.
 
+**[Acessar deploy ao vivo](https://spacex-archive-challenge.vercel.app/)**
+
 ![Demonstração da aplicação](./docs/gifs/demo.gif)
 
 ## Como rodar
