@@ -23,27 +23,34 @@ A aplicação estará disponível em `http://localhost:5173`.
 
 ## Scripts disponíveis
 
-| Script    | Comando                          | Descrição                           |
-| --------- | -------------------------------- | ----------------------------------- |
-| `dev`     | `vite`                           | Servidor de desenvolvimento com HMR |
-| `build`   | `tsc -b && vite build`           | Type-check + build de produção      |
-| `preview` | `vite preview`                   | Preview local do build de produção  |
-| `lint`    | `eslint .`                       | Linting via ESLint                  |
-| `format`  | `prettier --write .`             | Formatação via Prettier             |
-| `gifs`    | `node scripts/generate-gifs.mjs` | Gera o GIF único da seção Demo      |
+| Script           | Comando                  | Descrição                           |
+| ---------------- | ------------------------ | ----------------------------------- |
+| `dev`            | `vite`                   | Servidor de desenvolvimento com HMR |
+| `build`          | `tsc -b && vite build`   | Type-check + build de produção      |
+| `preview`        | `vite preview`           | Preview local do build de produção  |
+| `lint`           | `eslint .`               | Linting via ESLint                  |
+| `format`         | `prettier --write .`     | Formatação via Prettier             |
+| `test`           | `vitest run`             | Executa todos os testes             |
+| `test:watch`     | `vitest`                 | Testes em modo watch                |
+| `test:coverage`  | `vitest run --coverage`  | Testes com relatório de cobertura   |
+| `storybook`      | `storybook dev -p 6006`  | Storybook em modo desenvolvimento   |
+| `build-storybook`| `storybook build`        | Build estático do Storybook         |
 
 ## Stack e design system
 
-| Camada        | Tecnologia            |
-| ------------- | --------------------- |
-| Framework     | React 19 + TypeScript |
-| Bundler       | Vite 8                |
-| Roteamento    | React Router v7       |
-| Data fetching | TanStack Query v5     |
-| HTTP client   | Axios                 |
-| Design system | **Chakra UI v3**      |
-| Testes        | Vitest + MSW          |
-| Lint/Format   | ESLint + Prettier     |
+| Camada        | Tecnologia                   |
+| ------------- | ---------------------------- |
+| Framework     | React 19 + TypeScript        |
+| Bundler       | Vite 8                       |
+| Roteamento    | React Router v7              |
+| Data fetching | TanStack Query v5            |
+| HTTP client   | Axios                        |
+| Design system | **Chakra UI v3**             |
+| Testes        | Vitest + RTL + MSW           |
+| Cobertura     | @vitest/coverage-v8          |
+| Storybook     | Storybook 10 + addon-a11y   |
+| Lint/Format   | ESLint + Prettier            |
+| Deploy        | Vercel                       |
 
 ### Por que Chakra UI?
 
@@ -72,6 +79,7 @@ A aplicação estará disponível em `http://localhost:5173`.
 - Composição da tripulação com fotos e links para Wikipedia.
 - Links de recursos: webcast, wiki, artigo.
 - Botão voltar que preserva o estado da lista.
+- Metadados dinâmicos por rota via `react-helmet-async` (title e description).
 
 ### UI/UX
 
@@ -79,42 +87,105 @@ A aplicação estará disponível em `http://localhost:5173`.
 - Layout responsivo (mobile-first).
 - Navegação por teclado nos cards (Tab + Enter/Space).
 - Header sticky com navegação e toggle de tema.
+- Error Boundary global e por rota com fallback UI.
+- Página 404 para rotas inexistentes.
+
+## Testes e cobertura
+
+O projeto possui **107 testes** distribuídos em **25 suites**, cobrindo componentes, hooks, utils, services e páginas.
+
+### Cobertura atual
+
+| Métrica    | Valor     |
+| ---------- | --------- |
+| Statements | **87.5%** |
+| Branches   | **75.0%** |
+| Functions  | **85.5%** |
+| Lines      | **89.6%** |
+
+### Distribuição dos testes
+
+| Camada                   | Suites | Casos |
+| ------------------------ | ------ | ----- |
+| Componentes UI           | 3      | 13    |
+| Componentes list/        | 5      | 21    |
+| Componentes detail/      | 6      | 27    |
+| Hooks                    | 3      | 14    |
+| Utils                    | 1      | 12    |
+| Services                 | 1      | 3     |
+| Pages (integração)       | 3      | 10    |
+| Error Boundary + pages   | 3      | 7     |
+
+Para rodar os testes com cobertura:
+
+```bash
+pnpm test:coverage
+```
+
+## Storybook
+
+Documentação visual interativa dos componentes com addon de acessibilidade (a11y).
+
+```bash
+pnpm storybook
+```
+
+Stories disponíveis:
+
+- **Launches/LaunchCard** — Success, Failure, Upcoming
+- **Launches/Detail/LaunchDetailHero** — WithDescription, WithoutDescription
+- **Launches/Detail/LaunchDetailStats** — Success, Failure, Upcoming
+- **Launches/LaunchesEmptyState** — NoFilters, WithActiveFilters
+- **UI/FilterSelect** — Default, WithSelectedValue
+- **UI/DateInput** — Empty, WithValue, WithConstraints
+- **Feedback/ErrorFallback** — Default, ShortMessage
 
 ## Estrutura do projeto
 
 ```
 src/
 ├── components/
-│   ├── layouts/          # AppShell (header + main)
-│   └── ui/               # Componentes reutilizáveis (PreloadedImage, FilterSelect, DateInput, etc.)
+│   ├── error-boundary/   # ErrorBoundary + ErrorFallback
+│   ├── layouts/           # AppShell (header + main)
+│   └── ui/                # PreloadedImage, FilterSelect, DateInput, etc.
 ├── features/
 │   └── launches/
 │       ├── components/
-│       │   ├── list/     # LaunchCard, Filters, Pagination, Skeleton, EmptyState, ErrorState
-│       │   └── detail/   # Hero, Stats, Gallery, Crew, Resources, Skeleton
-│       ├── hooks/        # useLaunches, useLaunchesPage, useLaunchDetail
-│       ├── pages/        # LaunchesPage, LaunchDetailPage
-│       ├── services/     # launches.service (+ testes)
-│       ├── types/        # Launch type
-│       └── utils/        # launch.utils (imagem, status, data)
-└── lib/                  # Axios instance
+│       │   ├── list/      # LaunchCard, Filters, Pagination, Skeleton, EmptyState, ErrorState
+│       │   └── detail/    # Hero, Stats, Gallery, Crew, Resources, Skeleton
+│       ├── hooks/         # useLaunches, useLaunchesPage, useLaunchDetail
+│       ├── pages/         # LaunchesPage, LaunchDetailPage
+│       ├── services/      # launches.service (+ testes)
+│       ├── types/         # Launch type
+│       └── utils/         # launch.utils (imagem, status, data)
+├── pages/                 # ErrorTestPage, NotFoundPage
+├── router/                # Rotas com ErrorBoundary por rota
+└── lib/                   # Axios instance, React Query config
 ```
+
+## Deploy
+
+O projeto está configurado para deploy na Vercel via `vercel.json`:
+
+- **Build command**: `pnpm build`
+- **Output directory**: `dist`
+- **Rewrites**: SPA fallback para `index.html`
+
+Variável de ambiente necessária: `VITE_API_BASE_URL`.
 
 ## Limitações e próximos passos
 
 ### Limitações atuais
 
-- Testes cobrem apenas a camada de service (unit + MSW). Não há testes de componente ou integração com RTL.
-- Não há Error Boundary global — erros não capturados crasham a aplicação.
-- Sem metadados por rota (title/description dinâmicos).
 - Galeria do detalhe não possui lightbox/zoom.
 - O campo `type` do rocket vindo da API é sempre `"rocket"` (literal), então não é exibido.
+- Chunk único de produção acima de 500KB — pode se beneficiar de code splitting com lazy routes.
 
 ### Próximos passos
 
-- Expandir testes para componentes e integração (Vitest + RTL + jsdom).
-- Adicionar Error Boundary com fallback UI.
-- Implementar metadados por rota via React Helmet.
-- Adicionar Storybook para documentação visual de componentes.
+- Implementar lazy loading de rotas para reduzir bundle inicial.
+- Adicionar cancelamento de requests com `AbortController`/signal do TanStack Query.
 - Explorar micro-frontends (Module Federation) para escalar a arquitetura.
 - Adicionar pipeline CI/CD (GitHub Actions) com lint, test e build.
+- Implementar feature flags para habilitar/desabilitar funcionalidades.
+- Instrumentar métricas de frontend (carregamento, tempo até dados, erros por rota).
