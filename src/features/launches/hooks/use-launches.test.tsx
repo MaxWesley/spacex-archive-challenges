@@ -25,17 +25,13 @@ function createWrapper() {
   });
 
   return function Wrapper({ children }: { children: ReactNode }) {
-    return (
-      <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
-    );
+    return <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>;
   };
 }
 
 describe("useLaunches", () => {
   beforeEach(() => {
-    server.use(
-      http.post("*/launches/query", () => HttpResponse.json(mockResponse)),
-    );
+    server.use(http.post("*/launches/query", () => HttpResponse.json(mockResponse)));
   });
 
   it("fetches launches successfully", async () => {
@@ -54,9 +50,7 @@ describe("useLaunches", () => {
   });
 
   it("handles API error", async () => {
-    server.use(
-      http.post("*/launches/query", () => HttpResponse.error()),
-    );
+    server.use(http.post("*/launches/query", () => HttpResponse.error()));
 
     const { result } = renderHook(() => useLaunches({ page: 1 }), {
       wrapper: createWrapper(),
@@ -70,10 +64,9 @@ describe("useLaunches", () => {
   });
 
   it("passes pagination params correctly", async () => {
-    const { result } = renderHook(
-      () => useLaunches({ page: 2, limit: 5 }),
-      { wrapper: createWrapper() },
-    );
+    const { result } = renderHook(() => useLaunches({ page: 2, limit: 5 }), {
+      wrapper: createWrapper(),
+    });
 
     await waitFor(() => {
       expect(result.current.isLoading).toBe(false);

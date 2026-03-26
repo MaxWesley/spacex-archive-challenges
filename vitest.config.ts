@@ -2,13 +2,13 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "vitest/config";
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      "@test": path.resolve(__dirname, "./test"),
+      "@": path.resolve(dirname, "./src"),
+      "@test": path.resolve(dirname, "./test"),
     },
   },
   test: {
@@ -20,6 +20,7 @@ export default defineConfig({
       include: ["src/**/*.{ts,tsx}"],
       exclude: [
         "src/**/*.d.ts",
+        "src/**/*.stories.{ts,tsx}",
         "src/main.tsx",
         "src/App.tsx",
         "src/router/**",

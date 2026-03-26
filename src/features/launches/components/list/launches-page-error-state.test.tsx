@@ -6,21 +6,15 @@ describe("LaunchesPageErrorState", () => {
   it("renders default error message", () => {
     renderWithProviders(<LaunchesPageErrorState />);
 
-    expect(
-      screen.getByText("Não foi possível carregar os lançamentos"),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByText("Tente novamente em alguns instantes."),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Não foi possível carregar os lançamentos")).toBeInTheDocument();
+    expect(screen.getByText("Tente novamente em alguns instantes.")).toBeInTheDocument();
   });
 
   it("renders custom error message", () => {
     renderWithProviders(<LaunchesPageErrorState message="Network error" />);
 
     expect(screen.getByText("Network error")).toBeInTheDocument();
-    expect(
-      screen.queryByText("Tente novamente em alguns instantes."),
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText("Tente novamente em alguns instantes.")).not.toBeInTheDocument();
   });
 
   it("renders retry button when onRetry is provided", () => {

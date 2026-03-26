@@ -7,9 +7,7 @@ import { ErrorTestPage } from "./error-test-page";
 function renderPage() {
   return renderWithProviders(
     <HelmetProvider>
-      <ErrorBoundary
-        fallback={(error) => <p>{error.message}</p>}
-      >
+      <ErrorBoundary fallback={(error) => <p>{error.message}</p>}>
         <ErrorTestPage />
       </ErrorBoundary>
     </HelmetProvider>,

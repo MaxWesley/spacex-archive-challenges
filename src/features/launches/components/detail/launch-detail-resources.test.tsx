@@ -41,10 +41,7 @@ describe("LaunchDetailResources", () => {
   });
 
   it("limits to 3 resources max", () => {
-    const manyResources = [
-      ...resources,
-      { label: "Extra link", href: "https://extra.com" },
-    ];
+    const manyResources = [...resources, { label: "Extra link", href: "https://extra.com" }];
     renderWithProviders(<LaunchDetailResources resources={manyResources} />);
 
     expect(screen.getAllByRole("link")).toHaveLength(3);

@@ -12,9 +12,7 @@ describe("LaunchesSearchInput", () => {
   });
 
   it("renders with initial value", () => {
-    renderWithProviders(
-      <LaunchesSearchInput value="falcon" onChange={() => {}} />,
-    );
+    renderWithProviders(<LaunchesSearchInput value="falcon" onChange={() => {}} />);
 
     const input = screen.getByPlaceholderText("Search launches...") as HTMLInputElement;
     expect(input.value).toBe("falcon");
@@ -22,9 +20,7 @@ describe("LaunchesSearchInput", () => {
 
   it("debounces onChange calls", () => {
     const onChange = vi.fn();
-    renderWithProviders(
-      <LaunchesSearchInput value="" onChange={onChange} debounceMs={400} />,
-    );
+    renderWithProviders(<LaunchesSearchInput value="" onChange={onChange} debounceMs={400} />);
 
     fireEvent.change(screen.getByPlaceholderText("Search launches..."), {
       target: { value: "starlink" },
@@ -38,9 +34,7 @@ describe("LaunchesSearchInput", () => {
 
   it("shows clear button when has value and clears on click", () => {
     const onChange = vi.fn();
-    renderWithProviders(
-      <LaunchesSearchInput value="falcon" onChange={onChange} />,
-    );
+    renderWithProviders(<LaunchesSearchInput value="falcon" onChange={onChange} />);
 
     const clearButton = screen.getByLabelText("Clear search");
     expect(clearButton).toBeInTheDocument();
@@ -50,9 +44,7 @@ describe("LaunchesSearchInput", () => {
   });
 
   it("does not show clear button when value is empty", () => {
-    renderWithProviders(
-      <LaunchesSearchInput value="" onChange={() => {}} />,
-    );
+    renderWithProviders(<LaunchesSearchInput value="" onChange={() => {}} />);
 
     expect(screen.queryByLabelText("Clear search")).not.toBeInTheDocument();
   });

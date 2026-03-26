@@ -18,12 +18,18 @@ const baseLaunch: Launch = {
 
 describe("getLaunchImageSrc", () => {
   it("returns patch.small when available", () => {
-    const launch = { ...baseLaunch, links: { ...baseLaunch.links, patch: { small: "small.png", large: "large.png" } } };
+    const launch = {
+      ...baseLaunch,
+      links: { ...baseLaunch.links, patch: { small: "small.png", large: "large.png" } },
+    };
     expect(getLaunchImageSrc(launch)).toBe("small.png");
   });
 
   it("returns patch.large when small is null", () => {
-    const launch = { ...baseLaunch, links: { ...baseLaunch.links, patch: { small: null, large: "large.png" } } };
+    const launch = {
+      ...baseLaunch,
+      links: { ...baseLaunch.links, patch: { small: null, large: "large.png" } },
+    };
     expect(getLaunchImageSrc(launch)).toBe("large.png");
   });
 

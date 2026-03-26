@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { renderWithProviders, screen, fireEvent } from "@test/test-utils";
 import { ErrorBoundary } from "./error-boundary";
 
-function ThrowingComponent({ message }: { message: string }) {
+function ThrowingComponent({ message }: { message: string }): never {
   throw new Error(message);
 }
 

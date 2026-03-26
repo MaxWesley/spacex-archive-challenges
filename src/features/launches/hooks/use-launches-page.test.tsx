@@ -39,9 +39,7 @@ function createWrapper(initialEntries = ["/launches"]) {
 
 describe("useLaunchesPage", () => {
   beforeEach(() => {
-    server.use(
-      http.post("*/launches/query", () => HttpResponse.json(mockResponse)),
-    );
+    server.use(http.post("*/launches/query", () => HttpResponse.json(mockResponse)));
   });
 
   it("returns initial state with defaults", () => {

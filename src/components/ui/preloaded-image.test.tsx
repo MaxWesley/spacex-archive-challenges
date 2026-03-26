@@ -2,7 +2,11 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import { renderWithProviders, screen, waitFor } from "@test/test-utils";
 import { PreloadedImage } from "./preloaded-image";
 
-let mockImageInstances: Array<{ onload: (() => void) | null; onerror: (() => void) | null; src: string }>;
+let mockImageInstances: Array<{
+  onload: (() => void) | null;
+  onerror: (() => void) | null;
+  src: string;
+}>;
 
 beforeEach(() => {
   mockImageInstances = [];
@@ -43,17 +47,13 @@ describe("PreloadedImage", () => {
   });
 
   it("does not show skeleton when withLoading is false", () => {
-    renderWithProviders(
-      <PreloadedImage src="https://example.com/img.png" alt="test" />,
-    );
+    renderWithProviders(<PreloadedImage src="https://example.com/img.png" alt="test" />);
 
     expect(document.querySelector(".chakra-skeleton")).not.toBeInTheDocument();
   });
 
   it("renders image after successful load", async () => {
-    renderWithProviders(
-      <PreloadedImage src="https://example.com/img.png" alt="loaded image" />,
-    );
+    renderWithProviders(<PreloadedImage src="https://example.com/img.png" alt="loaded image" />);
 
     simulateLoad();
 
@@ -81,9 +81,7 @@ describe("PreloadedImage", () => {
   });
 
   it("preloads image with correct src", () => {
-    renderWithProviders(
-      <PreloadedImage src="https://example.com/photo.jpg" alt="test" />,
-    );
+    renderWithProviders(<PreloadedImage src="https://example.com/photo.jpg" alt="test" />);
 
     expect(mockImageInstances).toHaveLength(1);
     expect(mockImageInstances[0].src).toBe("https://example.com/photo.jpg");

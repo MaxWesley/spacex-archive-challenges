@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
+import { describe, it, expect, beforeEach } from "vitest";
 import { renderHook, waitFor } from "@testing-library/react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ChakraProvider, defaultSystem } from "@chakra-ui/react";
@@ -25,9 +25,7 @@ const mockLaunch = {
   },
   rocket: { name: "Falcon 1", type: "rocket" },
   launchpad: { name: "Kwajalein Atoll", locality: "Omelek Island" },
-  crew: [
-    { name: "John", agency: "NASA", image: null, wikipedia: null },
-  ],
+  crew: [{ name: "John", agency: "NASA", image: null, wikipedia: null }],
 };
 
 function createWrapper(initialPath: string) {
@@ -52,11 +50,7 @@ function createWrapper(initialPath: string) {
 
 describe("useLaunchDetail", () => {
   beforeEach(() => {
-    server.use(
-      http.post("*/launches/query", () =>
-        HttpResponse.json({ docs: [mockLaunch] }),
-      ),
-    );
+    server.use(http.post("*/launches/query", () => HttpResponse.json({ docs: [mockLaunch] })));
   });
 
   it("extracts id from URL params", () => {

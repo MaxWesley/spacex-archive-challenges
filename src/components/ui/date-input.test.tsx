@@ -4,17 +4,13 @@ import { DateInput } from "./date-input";
 
 describe("DateInput", () => {
   it("renders with aria-label", () => {
-    renderWithProviders(
-      <DateInput label="Date from" value="" onChange={() => {}} />,
-    );
+    renderWithProviders(<DateInput label="Date from" value="" onChange={() => {}} />);
 
     expect(screen.getByLabelText("Date from")).toBeInTheDocument();
   });
 
   it("renders with current value", () => {
-    renderWithProviders(
-      <DateInput label="Date from" value="2024-01-15" onChange={() => {}} />,
-    );
+    renderWithProviders(<DateInput label="Date from" value="2024-01-15" onChange={() => {}} />);
 
     const input = screen.getByLabelText("Date from") as HTMLInputElement;
     expect(input.value).toBe("2024-01-15");
@@ -22,9 +18,7 @@ describe("DateInput", () => {
 
   it("calls onChange when value changes", () => {
     const onChange = vi.fn();
-    renderWithProviders(
-      <DateInput label="Date from" value="" onChange={onChange} />,
-    );
+    renderWithProviders(<DateInput label="Date from" value="" onChange={onChange} />);
 
     fireEvent.change(screen.getByLabelText("Date from"), { target: { value: "2024-06-01" } });
     expect(onChange).toHaveBeenCalledWith("2024-06-01");
