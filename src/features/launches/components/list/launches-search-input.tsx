@@ -35,7 +35,7 @@ export function LaunchesSearchInput({
   };
 
   return (
-    <Flex gap={2} maxW={{ base: "full", md: "400px" }}>
+    <Flex gap={2} maxW={{ base: "full", md: "520px", lg: "640px" }}>
       <Flex position="relative" flex={1}>
         <Input
           placeholder="Search launches..."

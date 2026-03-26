@@ -1,14 +1,15 @@
 import { Box, Button, Container } from "@chakra-ui/react";
 import { useLaunchDetail } from "../hooks/use-launch-detail";
-import { LaunchDetailHero } from "../components/launch-detail-hero";
-import { LaunchDetailStats } from "../components/launch-detail-stats";
-import { LaunchDetailResources } from "../components/launch-detail-resources";
-import { LaunchDetailCrew } from "../components/launch-detail-crew";
+import { LaunchDetailHero } from "../components/detail/launch-detail-hero";
+import { LaunchDetailStats } from "../components/detail/launch-detail-stats";
+import { LaunchDetailResources } from "../components/detail/launch-detail-resources";
+import { LaunchDetailCrew } from "../components/detail/launch-detail-crew";
+import { LaunchDetailPageSkeleton } from "../components/detail/launch-detail-page.skeleton";
 
 export function LaunchDetailPage() {
   const { data, crew, isLoading, handleGoBack } = useLaunchDetail();
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LaunchDetailPageSkeleton />;
   if (!data) return <p>Not found</p>;
 
   const patchSrc =
