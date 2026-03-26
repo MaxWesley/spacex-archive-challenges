@@ -1,20 +1,9 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useQuery } from "@tanstack/react-query";
-import { api } from "@/lib/axios";
 import { Box, Button, Container, Text } from "@chakra-ui/react";
 import { PreloadedImage } from "@/components/ui/preloaded-image";
+import { useLaunchDetail } from "../hooks/use-launch-detail";
 
 export function LaunchDetailPage() {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
-  const { data, isLoading } = useQuery({
-    queryKey: ["launch", id],
-    queryFn: async () => {
-      const { data } = await api.get(`/launches/${id}`);
-      return data;
-    },
-  });
+  const { data, isLoading, handleGoBack } = useLaunchDetail();
 
   if (isLoading) return <p>Loading...</p>;
   if (!data) return <p>Not found</p>;
@@ -25,7 +14,7 @@ export function LaunchDetailPage() {
   return (
     <Container py={6}>
       <Box mb={4}>
-        <Button variant="outline" onClick={() => navigate(-1)}>
+        <Button variant="outline" onClick={handleGoBack}>
           Voltar
         </Button>
       </Box>
