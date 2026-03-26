@@ -4,12 +4,14 @@ interface LaunchDetailStatsProps {
   status: "success" | "failure" | "upcoming";
   launchDateLabel: string;
   launchSiteLabel?: string | null;
+  rocketLabel?: string | null;
 }
 
 export function LaunchDetailStats({
   status,
   launchDateLabel,
   launchSiteLabel,
+  rocketLabel,
 }: LaunchDetailStatsProps) {
   const colorPalette = status === "upcoming" ? "blue" : status === "success" ? "green" : "red";
   const statusLabel = status.toUpperCase();
@@ -61,6 +63,21 @@ export function LaunchDetailStats({
             fontSize="lg"
           >
             {launchDateLabel}
+          </Text>
+        </Box>
+
+        <Box>
+          <Text fontSize="xs" letterSpacing="wider" textTransform="uppercase" opacity={0.6}>
+            Rocket
+          </Text>
+          <Text
+            mt={2}
+            fontWeight="bold"
+            textTransform="uppercase"
+            letterSpacing="wider"
+            fontSize="lg"
+          >
+            {rocketLabel ?? "—"}
           </Text>
         </Box>
 

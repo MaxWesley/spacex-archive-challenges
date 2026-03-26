@@ -30,6 +30,11 @@ export function LaunchDetailPage() {
     day: "numeric",
   });
 
+  const rocketLabel =
+    typeof data?.rocket === "object" && data.rocket
+      ? data.rocket.name
+      : null;
+
   const launchSiteLabel =
     typeof data?.launchpad === "object" && data.launchpad
       ? `${data.launchpad.name}${data.launchpad.locality ? ` • ${data.launchpad.locality}` : ""}`
@@ -71,6 +76,7 @@ export function LaunchDetailPage() {
         <LaunchDetailStats
           status={status}
           launchDateLabel={launchDateLabel}
+          rocketLabel={rocketLabel}
           launchSiteLabel={launchSiteLabel}
         />
 
