@@ -20,15 +20,27 @@ export function LaunchCard({ launch }: LaunchCardProps) {
   const flightNumber =
     typeof launch.flight_number === "number" ? String(launch.flight_number).padStart(3, "0") : null;
 
+  const goToDetail = () =>
+    navigate(`/launches/${launch.id}`, { state: { from: location.pathname + location.search } });
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      goToDetail();
+    }
+  };
+
   return (
     <Box
       p={4}
       borderWidth="1px"
       minH={300}
       cursor="pointer"
-      onClick={() =>
-        navigate(`/launches/${launch.id}`, { state: { from: location.pathname + location.search } })
-      }
+      tabIndex={0}
+      role="link"
+      aria-label={`${launch.name} — ${status}`}
+      onClick={goToDetail}
+      onKeyDown={handleKeyDown}
       _hover={{
         transform: "scale(1.02)",
         transition: "0.2s",
@@ -36,12 +48,21 @@ export function LaunchCard({ launch }: LaunchCardProps) {
     >
       <Center>
         <Flex flexDir="column" alignItems="center">
-          <PreloadedImage src={imageSrc} alt={name} w={160} h={160} rounded="xs" objectFit="contain" />
+          <PreloadedImage
+            src={imageSrc}
+            alt={name}
+            w={160}
+            h={160}
+            rounded="xs"
+            objectFit="contain"
+          />
           <Box mt={8}>
             <Flex mb={4} justifyContent="space-between" alignItems="center">
               <Badge
                 size="xs"
-                colorPalette={status === "upcoming" ? "blue" : status === "success" ? "green" : "red"}
+                colorPalette={
+                  status === "upcoming" ? "blue" : status === "success" ? "green" : "red"
+                }
               >
                 {status.toUpperCase()}
               </Badge>
@@ -61,7 +82,13 @@ export function LaunchCard({ launch }: LaunchCardProps) {
             <Text fontWeight="bold" textAlign="left">
               {name}
               {" • "}
-              <Span fontWeight="medium" fontSize="sm" textAlign="left" color="yellow.500" lineBreak="auto">
+              <Span
+                fontWeight="medium"
+                fontSize="sm"
+                textAlign="left"
+                color="yellow.500"
+                lineBreak="auto"
+              >
                 {rocket}
               </Span>
             </Text>
@@ -75,4 +102,3 @@ export function LaunchCard({ launch }: LaunchCardProps) {
     </Box>
   );
 }
-
