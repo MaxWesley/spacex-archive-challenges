@@ -1,4 +1,4 @@
-import { Box, Image, type ImageProps } from "@chakra-ui/react";
+import { Box, Image, Skeleton, type ImageProps } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 
 type ImageState = "loading" | "loaded" | "error";
@@ -10,6 +10,7 @@ interface PreloadedImageProps extends ImageProps {
   loading?: "lazy" | "eager";
   decoding?: "async" | "sync" | "auto";
   referrerPolicy?: React.HTMLAttributeReferrerPolicy;
+  withLoading?: boolean;
 }
 
 export function PreloadedImage({
@@ -25,6 +26,7 @@ export function PreloadedImage({
   loading = "lazy",
   decoding = "async",
   referrerPolicy = "no-referrer",
+  withLoading = false,
 }: PreloadedImageProps) {
   const [state, setState] = useState<ImageState>("loading");
 
@@ -54,7 +56,7 @@ export function PreloadedImage({
 
   return (
     <Box position="relative" overflow="hidden" borderRadius={borderRadius ?? rounded} w={w} h={h}>
-      {/* {state === "loading" ? <Box rounded={rounded} w={w} h={h} /> : null} */}
+      {withLoading && state === "loading" ? <Skeleton rounded={rounded} w={w} h={h} /> : null}
       {state === "loaded" ? (
         <Image
           position="absolute"
