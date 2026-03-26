@@ -11,7 +11,13 @@ export default defineConfig({
     },
   },
   test: {
-    setupFiles: ["./test/mocks/setup.ts"],
+    environment: "jsdom",
+    setupFiles: ["./test/setup.ts", "./test/mocks/setup.ts"],
     include: ["**/*.{test,spec}.{ts,tsx}"],
+    coverage: {
+      reporter: ["text", "lcov"],
+      include: ["src/**/*.{ts,tsx}"],
+      exclude: ["src/**/*.d.ts", "src/main.tsx"],
+    },
   },
 });

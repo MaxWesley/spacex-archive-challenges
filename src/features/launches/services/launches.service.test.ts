@@ -26,12 +26,12 @@ describe("getLaunches", () => {
     });
 
     expect(api.post).toHaveBeenCalledWith("/launches/query", {
-      query: { search: "falcon", success: true },
+      query: { name: { $regex: "falcon", $options: "i" }, success: true },
       options: {
         page: 1,
         limit: 12,
         sort: {
-          date_utc: "desc",
+          date_utc: "asc",
         },
         populate: [
           { path: "rocket", select: { name: 1, type: 1 } },
