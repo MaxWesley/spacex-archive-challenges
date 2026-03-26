@@ -9,11 +9,14 @@ export function useLaunchesPage() {
   const search = searchParams.get("search") ?? "";
   const successParam = searchParams.get("success");
   const success = successParam === "true" ? true : successParam === "false" ? false : undefined;
+  const upcomingParam = searchParams.get("upcoming");
+  const upcoming = upcomingParam === "true" ? true : upcomingParam === "false" ? false : undefined;
 
   const { data, isLoading, isFetching, error, refetch } = useLaunches({
     page,
     search: search || undefined,
     success,
+    upcoming,
   });
 
   const totalPages = data?.totalPages ?? 1;
@@ -49,6 +52,13 @@ export function useLaunchesPage() {
     });
   };
 
+  const handleUpcomingChange = (value: string) => {
+    updateParams({
+      upcoming: value || null,
+      page: "1",
+    });
+  };
+
   const handlePrevPage = () => {
     updateParams({ page: String(Math.max(1, page - 1)) });
   };
@@ -65,6 +75,7 @@ export function useLaunchesPage() {
     refetch,
     search,
     success: successParam ?? "",
+    upcoming: upcomingParam ?? "",
     page,
     totalPages,
     totalDocs,
@@ -72,6 +83,7 @@ export function useLaunchesPage() {
     hasNextPage,
     handleSearchChange,
     handleSuccessChange,
+    handleUpcomingChange,
     handlePrevPage,
     handleNextPage,
   };

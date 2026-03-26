@@ -16,6 +16,7 @@ export function LaunchesPage() {
     refetch,
     search,
     success,
+    upcoming,
     page,
     totalPages,
     totalDocs,
@@ -23,6 +24,7 @@ export function LaunchesPage() {
     hasNextPage,
     handleSearchChange,
     handleSuccessChange,
+    handleUpcomingChange,
     handlePrevPage,
     handleNextPage,
   } = useLaunchesPage();
@@ -83,6 +85,16 @@ export function LaunchesPage() {
             { label: "Failure", value: "false" },
           ]}
           onChange={handleSuccessChange}
+        />
+        <LaunchesFilterSelect
+          label="Filter by schedule"
+          value={upcoming}
+          options={[
+            { label: "All", value: "" },
+            { label: "Upcoming", value: "true" },
+            { label: "Past", value: "false" },
+          ]}
+          onChange={handleUpcomingChange}
         />
       </Flex>
       {renderContent()}
