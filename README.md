@@ -13,7 +13,7 @@ SPA para consultar o histórico de lançamentos da SpaceX, construída com React
 pnpm install
 
 # 2. Configurar variáveis de ambiente
-cp .env.example .env
+cp .env
 # Editar .env e definir:
 # VITE_API_BASE_URL=https://api.spacexdata.com/v4
 
