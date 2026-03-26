@@ -24,7 +24,7 @@ export function LaunchesPageSkeleton() {
                       <Skeleton height="14px" width="70px" borderRadius="md" />
                     </Flex>
                     <Box mb={2}>
-                      <Skeleton height="18px" width="80%" borderRadius="md" />
+                      <Skeleton height="18px" width="95%" borderRadius="md" />
                     </Box>
                     <Box>
                       <Skeleton height="14px" width="90%" borderRadius="md" />

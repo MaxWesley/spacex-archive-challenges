@@ -1,4 +1,4 @@
-import { Box, Text, Badge, Flex, Center } from "@chakra-ui/react";
+import { Box, Text, Badge, Flex, Center, Span } from "@chakra-ui/react";
 import { getLaunchDate, getLaunchImageSrc, getLaunchStatus } from "../utils/launch.utils";
 import type { Launch } from "../types/launch";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -15,6 +15,7 @@ export function LaunchCard({ launch }: LaunchCardProps) {
   const status = getLaunchStatus(launch);
   const date = getLaunchDate(launch);
   const name = launch.name.toUpperCase();
+  const rocket = launch.rocket.name;
   const launchpad = launch.launchpad.name + " • " + launch.launchpad.locality;
 
   return (
@@ -48,7 +49,18 @@ export function LaunchCard({ launch }: LaunchCardProps) {
             </Flex>
             <Text fontWeight="bold" textAlign="left">
               {name}
+              {" • "}
+              <Span
+                fontWeight="medium"
+                fontSize="sm"
+                textAlign="left"
+                color="yellow.500"
+                lineBreak="auto"
+              >
+                {rocket}
+              </Span>
             </Text>
+
             <Text fontWeight="light" fontSize="sm" textAlign="left">
               {launchpad}
             </Text>
